@@ -1,0 +1,10 @@
+# Environment variables & API keys (Security)
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Temporary IDE / System files
+.DS_Store
+Thumbs.db

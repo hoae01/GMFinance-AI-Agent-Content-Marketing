@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bí quyết Time-Blocking x2 Năng Suất - Facebook Post Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --fb-card-bg: #0f172a;
+            --fb-card-border: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --accent: #8b5cf6;
+            --success: #10b981;
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Header Bar */
+        .page-header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--fb-card-border);
+            margin-bottom: 8px;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-badge {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Facebook Card UI */
+        .fb-post-card {
+            background: #18191a;
+            border: 1px solid #2f3031;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .fb-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 16px 12px 16px;
+            gap: 12px;
+        }
+
+        .fb-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .fb-user-info {
+            flex: 1;
+        }
+
+        .fb-author-name {
+            font-weight: 600;
+            color: #e4e6eb;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .verified-badge {
+            color: #2e89ff;
+            font-size: 0.9rem;
+        }
+
+        .fb-post-time {
+            font-size: 0.8rem;
+            color: #b0b3b8;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .fb-content {
+            padding: 4px 16px 16px 16px;
+            color: #e4e6eb;
+            font-size: 0.95rem;
+            line-height: 1.55;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .fb-image-container {
+            width: 100%;
+            max-height: 550px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .fb-image-container img {
+            width: 100%;
+            height: auto;
+            max-height: 550px;
+            object-fit: cover;
+        }
+
+        .fb-stats {
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            color: #b0b3b8;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #2f3031;
+        }
+
+        .fb-actions {
+            display: flex;
+            justify-content: space-around;
+            padding: 4px 0;
+            border-top: 1px solid #2f3031;
+        }
+
+        .fb-action-btn {
+            flex: 1;
+            padding: 8px 0;
+            text-align: center;
+            color: #b0b3b8;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 2px 4px;
+            transition: background 0.2s;
+        }
+
+        .fb-action-btn:hover {
+            background: #252728;
+            color: #e4e6eb;
+        }
+
+        /* Sidebar Info & Controls */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .action-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--fb-card-border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+
+        .btn-copy {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-copy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-copy:active {
+            transform: translateY(0);
+        }
+
+        .meta-card {
+            background: var(--card-bg);
+            border: 1px solid var(--fb-card-border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+
+        .meta-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-purple {
+            background: rgba(139, 92, 246, 0.15);
+            color: #c084fc;
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .badge-green {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .prompt-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.82rem;
+            color: #cbd5e1;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin-top: 8px;
+            position: relative;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10b981;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Bar -->
+        <header class="page-header">
+            <div>
+                <h1 class="page-title">📱 Facebook Post Preview</h1>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Sáng tạo tự động từ Notion Database & AI Agent</p>
+            </div>
+            <span class="date-badge">📅 2026-08-11 22:43</span>
+        </header>
+
+        <!-- Main Content: Facebook Preview Card -->
+        <main>
+            <div class="fb-post-card">
+                <div class="fb-header">
+                    <div class="fb-avatar">C</div>
+                    <div class="fb-user-info">
+                        <div class="fb-author-name">
+                            Chuyên Gia Thực Chiến <span class="verified-badge">✔</span>
+                        </div>
+                        <div class="fb-post-time">Vừa xong · 🌐</div>
+                    </div>
+                </div>
+
+                <div class="fb-content" id="postText">Có bao giờ bạn làm việc miệt mài 10 tiếng/ngày nhưng cuối ngày vẫn cảm thấy chưa làm được việc gì đáng kể?
+
+1 năm trước, mình liên tục rơi vào vòng xoáy đó. Sáng mở mắt ra là ngập trong tin nhắn, công việc không tên, tối đến thì kiệt sức mà danh sách công việc vẫn dài ngoẵng.
+
+Hiện tại? Mình làm việc đúng 5 tiếng mỗi ngày, hoàn thành 100% mục tiêu quan trọng và vẫn có trọn vẹn buổi tối thư giãn.
+
+Bí quyết thay đổi nằm ở đúng 1 kỹ thuật đơn giản: Time-Blocking (Phân khối thời gian).
+
+🔑 3 bước áp dụng ngay hôm nay:
+👉 1. Sáng (8h - 10h): Dành trọn cho VIỆC QUAN TRỌNG NHẤT (Tắt thông báo, không mở Email/Facebook).
+👉 2. Chiều (14h - 16h): Xử lý các cuộc họp và phản hồi tin nhắn tồn đọng.
+👉 3. Cuối ngày: Dành 15 phút lên danh sách 3 việc lớn cho ngày mai.
+
+Khi bạn làm chủ thời gian, bạn sẽ làm chủ sự nghiệp.
+
+Lưu lại bài viết nếu bạn muốn tối ưu hiệu suất làm việc nhé! 💡</div>
+
+                
+        <div class="fb-image-container">
+            <img src="assets/time_blocking_art.png" alt="Illustration" loading="lazy">
+        </div>
+        
+
+                <div class="fb-stats">
+                    <span>👍 ❤️ 💡 128 lượt thích</span>
+                    <span>34 bình luận · 19 chia sẻ</span>
+                </div>
+
+                <div class="fb-actions">
+                    <div class="fb-action-btn">👍 Thích</div>
+                    <div class="fb-action-btn">💬 Bình luận</div>
+                    <div class="fb-action-btn">↗️ Chia sẻ</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar: Controls & Metadata -->
+        <aside class="sidebar">
+            <div class="action-panel">
+                <button class="btn-copy" onclick="copyPostText()">
+                    📋 Sao chép Bài Viết
+                </button>
+            </div>
+
+            <div class="meta-card">
+                <h3>📊 Thông Số Bài Viết</h3>
+                <div class="tag-list">
+                    <span class="badge">Công thức: PAS + Micro-learning</span>
+                    <span class="badge badge-purple">Hook: Pain Point Question Hook</span>
+                    <span class="badge badge-green">Số từ: ~191 từ</span>
+                </div>
+                
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Chủ đề Notion:</strong> Năng suất & QLNST</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted);"><strong>Hashtags đề xuất:</strong></p>
+                <p style="font-size: 0.85rem; color: #60a5fa; margin-top: 4px;">#TimeManagement #WorkSmarter #NangSuatCao #Solopreneur</p>
+            </div>
+
+            <div class="meta-card">
+                <h3>🎨 Prompt Ảnh Minh Họa</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Dùng cho Midjourney v6 / DALL-E 3 / Flux:</p>
+                <div class="prompt-box" id="promptBox">A high-end 3D digital artwork illustration of time blocking productivity, glowing futuristic clock grid with glowing blue and purple calendar blocks, minimalist sleek aesthetic, 8k render, dark vibrant background</div>
+                <button class="btn-copy" style="margin-top: 10px; padding: 8px; font-size: 0.85rem; background: #334155;" onclick="copyPromptText()">
+                    ✂️ Copy Prompt Ảnh
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <div class="toast" id="toastNotification">Đã sao chép nội dung bài viết!</div>
+
+    <script>
+        function copyPostText() {
+            const text = document.getElementById('postText').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Đã sao chép bài viết vào Clipboard!");
+            });
+        }
+
+        function copyPromptText() {
+            const text = document.getElementById('promptBox').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Đã sao chép AI Image Prompt!");
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
