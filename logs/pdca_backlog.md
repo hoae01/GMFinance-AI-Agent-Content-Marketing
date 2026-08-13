@@ -39,3 +39,13 @@ Tài liệu này lưu trữ toàn bộ các cải tiến, bài học kinh nghi�
 - **Do (Đã thực hiện)**: Đã sinh 3 file ảnh `slide_01.png`, `slide_02.png`, `slide_03.png` và nhúng thành công vào bộ sinh HTML Facebook Preview.
 - **Check (Kết quả)**: Người dùng duyệt và khen ngợi đúng 100% mong muốn!
 - **Act (Bài học đưa vào quy tắc)**: Đưa bộ sinh 3 Slide Card (`generate_slide_cards.py`) làm chuẩn mực mặc định cho các bài đăng dạng Slide Card sắp tới.
+
+---
+
+### 🔄 [2026-08-13] Tích Hợp Đăng Bản Nháp (Draft) & Lên Lịch (Scheduled Post) 2 Fanpage #005
+- **Input của người dùng**: *"Đây là 2 fanpage của tôi (https://www.facebook.com/financegm/ và https://www.facebook.com/giaiphaptaichinhvaketoanVietnam/). Tôi muốn bạn bổ sung tính năng sau khi bạn đã tạo nội dung bài xong, draft nội dung lên Fanpage và lên lịch đăng luôn có được không?"*
+- **Plan (Phân tích & Kế hoạch)**: Xây dựng module `fb_integration/fb_publisher.py` kết nối Facebook Graph API v19.0+ chính thức. Tự động upload 3 ảnh Slide Card ở chế độ ẩn để gắn ID, hỗ trợ 2 chế độ (Tạo bản nháp Draft và Lên lịch Scheduled Post theo khung giờ vàng) cho 2 Fanpage thương hiệu.
+- **Do (Đã thực hiện)**: Tạo module `fb_integration/fb_publisher.py`, file hướng dẫn lấy Token vĩnh viễn `HUONG_DAN_FACEBOOK_API.md`, cập nhật file cấu hình `.env` & `.env.example`.
+- **Check (Kết quả)**: Chạy test lệnh CLI `python fb_integration/fb_publisher.py --test` hoạt động hoàn hảo.
+- **Act (Bài học đưa vào quy tắc)**: Mọi bài viết sau khi xuất bản nội dung & 3 Slide Cards sẽ sẵn sàng lệnh tự động đẩy nháp (Draft) hoặc hẹn giờ (Schedule) lên 2 Fanpage qua Graph API.
+
