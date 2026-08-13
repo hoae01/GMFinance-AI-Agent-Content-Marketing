@@ -206,6 +206,30 @@ def publish_or_schedule_post(page_key, message, image_paths=None, is_draft=True,
         print(f"❌ Thất bại: {e}")
         return {"success": False, "error": str(e), "page_name": page_name}
 
+def delete_post(post_id, page_key="1"):
+    """Xóa 1 bài viết hoặc bài nháp/lên lịch bằng Post ID qua Facebook Graph API."""
+    page_info = FANPAGES.get(str(page_key))
+    token = page_info["token"] if page_info else ""
+    if not token:
+        # Thử dùng token của Fanpage 1 hoặc 2
+        token = FANPAGES["1"]["token"] or FANPAGES["2"]["token"]
+
+    url = f"{GRAPH_API_BASE}/{post_id}?access_token={token}"
+    req = urllib.request.Request(url, method="DELETE")
+    try:
+        with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            if data.get("success"):
+                print(f"🗑️ Đã xóa thành công bài viết (Post ID: {post_id}) trên Facebook!")
+                return True
+            else:
+                print(f"⚠️ Kết quả xóa bài viết {post_id}: {data}")
+                return False
+    except Exception as e:
+        print(f"❌ Lỗi xóa bài viết {post_id}: {e}")
+        return False
+
+
 def main():
     parser = argparse.ArgumentParser(description="Tool Đăng/Lên lịch bài viết Facebook Fanpage GMFinance")
     parser.add_argument("--page", choices=["1", "2", "all"], default="all", help="Chọn Fanpage (1: GMFinance, 2: Giải Pháp Tài Chính, all: Cả 2)")
@@ -215,9 +239,15 @@ def main():
     parser.add_argument("--draft", action="store_true", default=True, help="Tạo bản nháp (Draft - mặc định)")
     parser.add_argument("--publish-now", action="store_true", help="Đăng trực tiếp ngay lập tức")
     parser.add_argument("--schedule", type=str, help="Lên lịch đăng bài dạng 'YYYY-MM-DD HH:MM'")
+    parser.add_argument("--delete", type=str, help="Xóa bài viết/bản nháp/bài lên lịch bằng Post ID")
     parser.add_argument("--test", action="store_true", help="Kiểm tra cấu hình API và kết nối Token")
 
     args = parser.parse_args()
+
+    if args.delete:
+        print(f"🗑️ Đang gửi yêu cầu xóa Post ID: {args.delete}...")
+        delete_post(args.delete, page_key=args.page)
+        return
 
     if args.test:
         print("🔍 Đang kiểm tra cấu hình Facebook API trong file .env...")
@@ -264,3 +294,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
