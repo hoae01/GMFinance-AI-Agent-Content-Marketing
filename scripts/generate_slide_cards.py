@@ -154,24 +154,24 @@ def create_slide_card(number_str, title, body_text, output_filename, icon_type="
 def generate_all_slides():
     slide1 = create_slide_card(
         number_str="01",
-        title="Cognitive Overload (Bẫy Quá Tải)",
-        body_text="Mỗi mục tiêu dang dở giống như một ứng dụng chạy ngầm ngốn kiệt năng lượng bộ não. Càng ôm đồm nhiều việc, bạn càng khó tập trung và dễ kiệt sức.",
+        title="Bẫy Trì Hoãn 5 Giây (5-Second Trap)",
+        body_text="Bộ não của bạn được lập trình để bảo vệ bạn khỏi sự mệt mỏi. Khi bạn do dự quá 5 giây, não bộ sẽ tự động nảy sinh hàng trăm lý do để lùi bước.",
         output_filename="slide_01.png",
         icon_type="brain"
     )
 
     slide2 = create_slide_card(
         number_str="02",
-        title="Phép Trừ > Phép Cộng (Subtraction)",
-        body_text="Khi gặp bế tắc, người thông minh không hỏi 'Nên làm thêm việc gì?'. Họ hỏi 'Nên xóa bỏ hoặc tạm dừng việc gì?' để giải phóng 100% sự tập trung vào mục tiêu lớn nhất.",
+        title="Quy Tắc 5-4-3-2-1 (The 5-Second Rule)",
+        body_text="Đếm ngược 5-4-3-2-1 và HÀNH ĐỘNG NGAY. Việc đếm ngược giúp ngắt dòng suy nghĩ do dự và kích hoạt ngay vùng Vỏ não trước trán (Prefrontal Cortex).",
         output_filename="slide_02.png",
         icon_type="minus"
     )
 
     slide3 = create_slide_card(
         number_str="03",
-        title="Bài Tập Audit 30 Ngày (Keep - Pause - Delete)",
-        body_text="Rà soát toàn bộ công việc và kiên quyết loại bỏ cam kết không tạo giá trị. Chỉ giữ lại 2-3 ưu tiên cốt lõi nhất và kiên trì lặp lại mỗi ngày.",
+        title="Kích Hoạt Hành Động Đỉnh Cao (Action Trigger)",
+        body_text="Đừng chờ đợi cảm hứng. Cảm hứng chỉ xuất hiện SAU KHI bạn đã bắt đầu làm việc. Đếm 5-4-3-2-1 và bứt phá mọi mục tiêu ngay hôm nay!",
         output_filename="slide_03.png",
         icon_type="check"
     )
