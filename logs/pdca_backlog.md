@@ -49,3 +49,15 @@ Tài liệu này lưu trữ toàn bộ các cải tiến, bài học kinh nghi�
 - **Check (Kết quả)**: Chạy test lệnh CLI `python fb_integration/fb_publisher.py --test` hoạt động hoàn hảo.
 - **Act (Bài học đưa vào quy tắc)**: Mọi bài viết sau khi xuất bản nội dung & 3 Slide Cards sẽ sẵn sàng lệnh tự động đẩy nháp (Draft) hoặc hẹn giờ (Schedule) lên 2 Fanpage qua Graph API.
 
+---
+
+### 🔄 [2026-08-13] Sửa Triệt Để Lỗi Tràn Chữ & Đa Dạng Hóa Theme Thiết Kế Slide Cards #006
+- **Input của người dùng**: *"Hay đó, nhưng slide bạn làm bị tràn chữ ra bên ngoài rồi, với cả bạn có thể đối thiết kế slide để tránh bị nhàm chán và giống như bài đăng trước không?"*
+- **Plan (Phân tích & Kế hoạch)**:
+  1. Viết thuật toán Auto-Wrap & Auto-Scale Font Size trong `scripts/generate_slide_cards.py` để tính toán chính xác `bbox` tiêu đề và nội dung, co giãn kích thước chữ tự động, đảm bảo 100% không bao giờ tràn lề.
+  2. Bổ sung 3 Theme thiết kế cao cấp: `modern_dark_gold` (Chess King Luxury), `glassmorphism_blue` (Executive Finance) và `minimal_clean` (Minimalist Classic) để tạo sự tươi mới cho mỗi bài viết.
+- **Do (Đã thực hiện)**: Cập nhật `scripts/generate_slide_cards.py`, sinh lại bộ 3 Slide Cards với Theme `modern_dark_gold` cực đẹp, tự động điều chỉnh font size.
+- **Check (Kết quả)**: Kiểm tra ảnh tạo ra hoàn toàn sạch lỗi tràn chữ, khoảng cách lề và dòng phân bổ hài hòa, sang trọng.
+- **Act (Bài học đưa vào quy tắc)**: Áp dụng thuật toán Auto-Wrap & luân chuyển các Theme thiết kế cho mỗi bài đăng mới để tạo sự mới mẻ liên tục cho kênh.
+
+
