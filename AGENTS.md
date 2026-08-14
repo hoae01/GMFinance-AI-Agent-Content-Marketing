@@ -60,3 +60,113 @@ Phụ trách viết kịch bản, thiết kế storyboard, hướng dẫn tự q
 6. **Xuất HTML Preview**: Chạy `scripts/generate_video_script_html.py` sinh file HTML preview trong `./Output/`.
 7. **Gợi Ý Repurpose → Bài FB**: Agent 3 hỏi "Bạn có muốn chuyển kịch bản video này thành bài viết FB không?" → Nếu có, chuyển cho Agent 1.
 
+---
+
+## 🎯 2 FANPAGE THƯƠNG HIỆU MỤC TIÊU
+
+| # | Fanpage | URL | Mô tả |
+|:--|:--------|:----|:------|
+| 1 | **GMFinance** | [facebook.com/financegm](https://www.facebook.com/financegm/) | Fanpage chính — Đào tạo & Coaching ACCA |
+| 2 | **Giải Pháp Tài Chính & Kế Toán Việt Nam** | [facebook.com/giaiphaptaichinhvaketoanVietnam](https://www.facebook.com/giaiphaptaichinhvaketoanVietnam/) | Fanpage mở rộng — Cộng đồng Kế-Tài-Kiểm |
+
+Cấu hình Token trong file `.env` (tham khảo [.env.example](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/.env.example) và hướng dẫn tại [HUONG_DAN_FACEBOOK_API.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/fb_integration/HUONG_DAN_FACEBOOK_API.md)).
+
+---
+
+## 📂 CẤU TRÚC THƯ MỤC DỰ ÁN
+
+```
+📁 AI Agent - Hỗ trợ đăng bài FB tự động/
+│
+├── 📄 AGENTS.md                         ← (File này) Quy trình vận hành & kiến trúc hệ thống
+├── 📄 README.md                         ← Giới thiệu dự án
+├── 📄 HUONG_DAN_SU_DUNG.md              ← Hướng dẫn sử dụng chi tiết
+├── 📄 .env / .env.example               ← Cấu hình Token (Notion + Facebook API)
+│
+├── 📁 .agents/skills/                   ← 9 SKILLS CHUYÊN BIỆT
+│   ├── orchestrator_dispatcher/         ← Agent 3: Điều phối & khảo sát nhu cầu
+│   ├── fb_copywriting_expert/           ← Agent 1: Viết bài FB 150-300 từ
+│   ├── fb_visual_creator/               ← Agent 1: Thiết kế slide card / ảnh AI
+│   ├── brand_awareness_gmfinance/       ← Agent 1: Định vị thương hiệu GMFinance
+│   ├── fb_reach_optimizer/              ← Agent 1: Tối ưu reach & hashtags
+│   ├── notion_content_analyzer/         ← Agent 1: Phân tích dữ liệu Notion
+│   ├── process_improvement_pdca/        ← Agent 2: Cải tiến PDCA & bảo trì bộ nhớ
+│   ├── video_script_writer/             ← Agent 4: Kịch bản + storyboard video
+│   └── video_caption_optimizer/         ← Agent 4: Caption + hashtags + nhạc nền
+│
+├── 📁 knowledge_base/                   ← TÀI LIỆU KIẾN THỨC
+│   ├── brand_identity_gmfinance.md      ← Nhận diện thương hiệu GMFinance
+│   ├── copywriting_frameworks.md        ← Framework viết bài (PAS, AIDA, HSO, BAB)
+│   ├── formatting_and_tone.md           ← Quy chuẩn format & giọng văn
+│   ├── proven_templates.md              ← Mẫu bài viết đã chứng minh hiệu quả
+│   ├── viral_hooks_library.md           ← Thư viện 50+ Hook viral Facebook
+│   └── video_script_templates.md        ← Template kịch bản video + 30 hook video
+│
+├── 📁 scripts/                          ← SCRIPTS TỰ ĐỘNG
+│   ├── html_generator.py                ← Sinh HTML Facebook Post Preview (nhúng Base64)
+│   ├── generate_slide_cards.py          ← Sinh bộ 3 Slide Card 1080x1080px (3 themes)
+│   ├── generate_video_script_html.py    ← Sinh HTML Video Script Preview (copy 1-click)
+│   ├── copy_slides_to_clipboard.py      ← Copy ảnh slide vào clipboard
+│   └── cleanup_old_assets.py            ← Xóa Asset/Output cũ > 7 ngày
+│
+├── 📁 fb_integration/                   ← TÍCH HỢP FACEBOOK API
+│   ├── fb_publisher.py                  ← Đẩy Draft / Lên lịch đăng 2 Fanpage
+│   └── HUONG_DAN_FACEBOOK_API.md        ← Hướng dẫn lấy Page Token vĩnh viễn
+│
+├── 📁 notion_integration/               ← TÍCH HỢP NOTION API
+│   ├── read_knowledge_vault.py          ← Đọc & lọc ghi chú từ Notion Database
+│   ├── fetch_notion.py                  ← Fetch raw data từ Notion API
+│   ├── search_databases.py              ← Tìm kiếm database Notion
+│   ├── notion_template_schema.md        ← Cấu trúc Database Notion mẫu
+│   └── HUONG_DAN_NOTION_MCP.md          ← Hướng dẫn kết nối Notion
+│
+├── 📁 logs/                             ← NHẬT KÝ HỆ THỐNG
+│   ├── pdca_backlog.md                  ← Nhật ký cải tiến PDCA (Plan-Do-Check-Act)
+│   └── storage_maintenance.log          ← Log dọn dẹp bộ nhớ tự động
+│
+├── 📁 Output/                           ← KẾT QUẢ ĐẦU RA
+│   ├── assets/                          ← Ảnh slide card, logo GMFinance
+│   ├── YYYY-MM-DD_*.html               ← File HTML FB Post Preview
+│   └── YYYY-MM-DD_video_*.html         ← File HTML Video Script Preview
+│
+└── 📁 Brand/                            ← TÀI NGUYÊN THƯƠNG HIỆU
+    └── (Logo gốc, hình ảnh mẫu...)
+```
+
+---
+
+## 🔗 BẢN ĐỒ SCRIPTS & LỆNH CHẠY
+
+| Script | Lệnh Chạy | Gọi Tại Bước | Chức Năng |
+|:-------|:----------|:-------------|:---------|
+| [read_knowledge_vault.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/notion_integration/read_knowledge_vault.py) | `python notion_integration/read_knowledge_vault.py` | Flow A Bước 2 | Đọc & lọc ghi chú Notion Database |
+| [generate_slide_cards.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/scripts/generate_slide_cards.py) | `python scripts/generate_slide_cards.py` | Flow A Bước 5 | Sinh bộ 3 Slide Card 1080x1080px |
+| [html_generator.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/scripts/html_generator.py) | `python scripts/html_generator.py` | Flow A Bước 6 | Xuất HTML FB Post Preview (Base64) |
+| [fb_publisher.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/fb_integration/fb_publisher.py) | `python fb_integration/fb_publisher.py` | Flow A Bước 7 | Đẩy Draft / Lên lịch 2 Fanpage |
+| [generate_video_script_html.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/scripts/generate_video_script_html.py) | `python scripts/generate_video_script_html.py` | Flow B Bước 6 | Xuất HTML Video Script Preview |
+| [cleanup_old_assets.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/scripts/cleanup_old_assets.py) | `python scripts/cleanup_old_assets.py` | Sau mỗi Flow | Dọn dẹp file Output/Assets > 7 ngày |
+
+---
+
+## 📚 KNOWLEDGE BASE — TÀI LIỆU KIẾN THỨC
+
+Agent 1 & Agent 4 **BẮT BUỘC** tra cứu Knowledge Base trước khi soạn thảo nội dung:
+
+| File | Agent Sử Dụng | Nội Dung |
+|:-----|:-------------|:---------|
+| [brand_identity_gmfinance.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/knowledge_base/brand_identity_gmfinance.md) | Agent 1, 4 | Nhận diện thương hiệu, Chess King, tông màu, slogan |
+| [copywriting_frameworks.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/knowledge_base/copywriting_frameworks.md) | Agent 1 | Framework PAS, AIDA, HSO, BAB, Micro-learning |
+| [formatting_and_tone.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/knowledge_base/formatting_and_tone.md) | Agent 1, 4 | Quy chuẩn format, giọng văn, emoji, ngắt dòng |
+| [proven_templates.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/knowledge_base/proven_templates.md) | Agent 1 | Mẫu bài viết đã viral, cấu trúc bài chuẩn |
+| [viral_hooks_library.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/knowledge_base/viral_hooks_library.md) | Agent 1 | 50+ Hook viral Facebook theo 10 nhóm |
+| [video_script_templates.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/knowledge_base/video_script_templates.md) | Agent 4 | 30 hook video + 3 kịch bản mẫu + pacing guide |
+
+---
+
+## 📖 TÀI LIỆU THAM KHẢO
+
+- [README.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/README.md) — Giới thiệu dự án
+- [HUONG_DAN_SU_DUNG.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/HUONG_DAN_SU_DUNG.md) — Hướng dẫn sử dụng chi tiết
+- [HUONG_DAN_FACEBOOK_API.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/fb_integration/HUONG_DAN_FACEBOOK_API.md) — Hướng dẫn lấy Facebook Page Token
+- [HUONG_DAN_NOTION_MCP.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/notion_integration/HUONG_DAN_NOTION_MCP.md) — Hướng dẫn kết nối Notion API
+- [pdca_backlog.md](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/logs/pdca_backlog.md) — Nhật ký cải tiến PDCA

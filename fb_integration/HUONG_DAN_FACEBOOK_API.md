@@ -1,6 +1,7 @@
-# 📖 Hướng Dẫn Cấu Hình Facebook Graph API Cho Fanpage GMFinance
+# 📖 Hướng Dẫn Cấu Hình Facebook Gra ph API Cho Fanpage GMFinance
 
 Tài liệu này hướng dẫn bạn từng bước lấy **Page ID** và **Page Access Token (Token Quản trị Fanpage)** để kết nối tính năng **Tự động lưu bản nháp (Draft)** & **Lên lịch đăng bài (Scheduled Post)** cho 2 Fanpage:
+
 1. **Fanpage 1**: GMFinance - Đào Tạo & Coaching ACCA (`https://www.facebook.com/financegm/`)
 2. **Fanpage 2**: Giải Pháp Tài Chính & Kế Toán Việt Nam (`https://www.facebook.com/giaiphaptaichinhvaketoanVietnam/`)
 
@@ -72,16 +73,19 @@ Nếu cấu hình đúng, màn hình sẽ báo trạng thái đã nhận diện 
 ## 🚀 Cách Sử Dụng Đăng Bài / Lên Lịch
 
 ### 1. Tạo Bản Nháp (Draft) cho cả 2 Fanpage (Mặc định):
+
 ```bash
 python fb_integration/fb_publisher.py --message-file Output/baiviet_moi.txt --images Output/assets/slide_01.png Output/assets/slide_02.png Output/assets/slide_03.png --page all --draft
 ```
 
 ### 2. Lên Lịch Đăng Bài (Scheduled Post) lúc 20:00 tối:
+
 ```bash
 python fb_integration/fb_publisher.py --message-file Output/baiviet_moi.txt --images Output/assets/slide_01.png Output/assets/slide_02.png Output/assets/slide_03.png --page 1 --schedule "2026-08-14 20:00"
 ```
 
 ### 3. Đăng cho riêng Fanpage 1 hoặc Fanpage 2:
+
 - Cả 2 trang: `--page all`
 - Fanpage GMFinance: `--page 1`
 - Fanpage Giải Pháp Tài Chính: `--page 2`

@@ -26,7 +26,7 @@ def load_env():
 
 load_env()
 NOTION_TOKEN = os.environ.get("NOTION_TOKEN", "")
-DATABASE_ID = os.environ.get("NOTION_DATABASE_ID", "2d946051-a014-8031-b54f-c5d2d82fa52b")
+DATABASE_ID = os.environ.get("NOTION_DATABASE_ID") or "2d946051-a014-8031-b54f-c5d2d82fa52b"
 
 def get_page_blocks(page_id):
     url = f"https://api.notion.com/v1/blocks/{page_id}/children?page_size=100"
