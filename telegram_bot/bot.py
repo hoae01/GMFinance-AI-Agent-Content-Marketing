@@ -55,6 +55,28 @@ def print_banner():
     print("=" * 65)
 
 
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/plain; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(b"GMFinance Telegram Bot is LIVE and Running 24/7!")
+
+    def log_message(self, format, *args):
+        pass  # Không in log truy cập rác
+
+def run_health_server():
+    """Chạy web server siêu nhẹ để đáp ứng yêu cầu Health Check của Render Web Service (Gói Miễn Phí $0)."""
+    port = int(os.environ.get("PORT", 10000))
+    try:
+        server = HTTPServer(("0.0.0.0", port), HealthCheckHandler)
+        server.serve_forever()
+    except Exception as e:
+        print(f"[WARN] Health server note: {e}")
+
 def start_bot():
     token = config.TELEGRAM_BOT_TOKEN
     if not token or token == "your_telegram_bot_token_here":
@@ -66,6 +88,11 @@ def start_bot():
         return
 
     print_banner()
+
+    # Khởi động Healthcheck Web Server ngầm cho Render Free Web Service
+    t = threading.Thread(target=run_health_server, daemon=True)
+    t.start()
+
     bot = telebot.TeleBot(token, parse_mode=None)
     
     # Đăng ký các router xử lý
