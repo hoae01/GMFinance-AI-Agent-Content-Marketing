@@ -56,8 +56,8 @@ def call_llm(prompt: str, json_mode: bool = False) -> str:
             from google.genai import types
             client = genai.Client(api_key=config.GEMINI_API_KEY)
             
-            # Thử model mới nhất 2.5 Flash hoặc fallback sang 1.5 Flash
-            for model_name in ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]:
+            # Thử model mới nhất Gemini Flash
+            for model_name in ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.5-flash", "gemini-flash-latest"]:
                 try:
                     config_args = types.GenerateContentConfig(
                         system_instruction=SYSTEM_PROMPT_CORE,
