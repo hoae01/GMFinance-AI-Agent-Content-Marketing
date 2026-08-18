@@ -48,17 +48,16 @@ Phụ trách viết kịch bản, thiết kế storyboard, hướng dẫn tự q
 5. **Soạn Thảo Bài Viết & Tạo Visual GMFinance**: Áp dụng Knowledge Base + `generate_slide_cards.py` sinh bộ 3 Slide Card chuẩn logo.
 6. **Xuất Kết Quả Ra HTML & Bảo Trì Bộ Nhớ**: Agent 1 xuất file HTML trong `./Output/`. Agent 2 quét dọn dẹp các Asset cũ hơn 7 ngày để giải phóng bộ nhớ.
 7. **Tự Động Lưu Nháp (Draft) & Lên Lịch Đăng 2 Fanpage**: Hỗ trợ gọi `python fb_integration/fb_publisher.py` đẩy bài nháp hoặc hẹn giờ lên lịch đăng bài cho 2 Fanpage thương hiệu (`GMFinance` & `Giải Pháp Tài Chính`).
-8. **Gợi Ý Repurpose → Video**: Agent 3 hỏi "Bạn có muốn chuyển bài viết này thành kịch bản video ngắn không?" → Nếu có, chuyển cho Agent 4.
+8. **Gợi Ý Repurpose → Video**: Agent 3 hỏi "Bạn có muốn chuyển bài vi### 📱 FLOW C: TƯƠNG TÁC TỰ ĐỘNG HÓA QUA TELEGRAM BOT (24/7)
 
-### 🅱️ FLOW B: TẠO KỊCH BẢN VIDEO NGẮN (Agent 4)
+Hệ thống cung cấp giao diện điều khiển 24/7 từ điện thoại/máy tính qua Telegram Bot (`python telegram_bot/bot.py` hoặc click `run_telegram_bot.bat`):
 
-1. **Khảo Sát Nhu Cầu**: Agent 3 xác nhận chủ đề + dạng video (Talking Head / B-Roll / Tutorial / Storytelling / Day-in-the-life / Reaction).
-2. **Thu Thập Dữ Liệu**: Agent 4 nhận chủ đề từ Agent 3, hoặc nhận bài FB từ Agent 1 (nếu repurpose).
-3. **Đề Xuất 3 Góc Kịch Bản**: Agent 4 hiển thị 3 gợi ý kịch bản video.
-4. **Người Dùng Lựa Chọn**: Chọn 1 phương án.
-5. **Viết Kịch Bản & Storyboard**: Agent 4 viết full script + storyboard + hướng dẫn quay + text overlay + caption + nhạc nền.
-6. **Xuất HTML Preview**: Chạy `scripts/generate_video_script_html.py` sinh file HTML preview trong `./Output/`.
-7. **Gợi Ý Repurpose → Bài FB**: Agent 3 hỏi "Bạn có muốn chuyển kịch bản video này thành bài viết FB không?" → Nếu có, chuyển cho Agent 1.
+1. **Khảo sát & Đề xuất từ Notion**:
+   - Gõ `/notion` $\rightarrow$ Bot quét Knowledge Vault và trả về 4 gợi ý bài viết kèm bàn phím Inline `[📝 Viết bài FB]` & `[🎬 Phỏng vấn Video]`.
+2. **Soạn bài Facebook & Tạo Slide Card**:
+   - Gõ `/fb <chủ đề>` hoặc chat tự do $\rightarrow$ Bot tự viết bài chuẩn GMFinance + Gọi Pillow sinh 3 Slide Card (1080x1080px) gửi ảnh trực tiếp vào chat $\rightarrow$ Bấm nút 1-chạm: Lưu Nháp Fanpage 1/2, Lên Lịch (08:30 / 11:30 / 20:00), Đăng Ngay hoặc Chuyển thành Video.
+3. **Phỏng vấn lên Kịch bản Video ngắn (TikTok/Reels)**:
+   - Gõ `/video <chủ đề>` $\rightarrow$ Bot đóng vai Đạo diễn phỏng vấn 3 câu hỏi tương tác ngắn qua chat $\rightarrow$ Tổng hợp câu trả lời thành kịch bản video ngắn (Hook 3s, Storyboard 4 cảnh, góc quay, text overlay, caption, hashtags) + xuất file Markdown.
 
 ---
 
@@ -78,10 +77,22 @@ Cấu hình Token trong file `.env` (tham khảo [.env.example](file:///c:/Users
 ```
 📁 AI Agent - Hỗ trợ đăng bài FB tự động/
 │
-├── 📄 AGENTS.md                         ← (File này) Quy trình vận hành & kiến trúc hệ thống
+├── 📄 AGENTS.md                         ← Quy trình vận hành & kiến trúc hệ thống
 ├── 📄 README.md                         ← Giới thiệu dự án
 ├── 📄 HUONG_DAN_SU_DUNG.md              ← Hướng dẫn sử dụng chi tiết
-├── 📄 .env / .env.example               ← Cấu hình Token (Notion + Facebook API)
+├── 📄 run_telegram_bot.bat              ← File chạy nhanh Telegram Bot 1-click
+├── 📄 requirements.txt                  ← Quản lý thư viện Python
+├── 📄 .env / .env.example               ← Cấu hình Token (Telegram, LLM, Notion, Facebook API)
+│
+├── 📁 telegram_bot/                     ← MODULE TELEGRAM BOT AGENT (MỚI)
+│   ├── bot.py                           ← Entry point chạy Telegram Bot
+│   ├── handlers.py                      ← Router tin nhắn, lệnh & nút bấm Inline
+│   ├── ai_engine.py                     ← Brain AI (Google Gemini Flash & OpenAI)
+│   ├── fb_workflow.py                   ← Workflow soạn bài FB, slide card & publish
+│   ├── video_workflow.py                ← Workflow phỏng vấn video & sinh kịch bản
+│   ├── notion_reader.py                 ← Workflow đọc & gợi ý chủ đề Notion
+│   ├── config.py                        ← Quản lý config & phân quyền Telegram ID
+│   └── HUONG_DAN_TELEGRAM_BOT.md        ← Hướng dẫn tạo Bot Telegram trong 1 phút
 │
 ├── 📁 .agents/skills/                   ← 9 SKILLS CHUYÊN BIỆT
 │   ├── orchestrator_dispatcher/         ← Agent 3: Điều phối & khảo sát nhu cầu
@@ -110,7 +121,7 @@ Cấu hình Token trong file `.env` (tham khảo [.env.example](file:///c:/Users
 │   └── cleanup_old_assets.py            ← Xóa Asset/Output cũ > 7 ngày
 │
 ├── 📁 fb_integration/                   ← TÍCH HỢP FACEBOOK API
-│   ├── fb_publisher.py                  ← Đẩy Draft / Lên lịch đăng 2 Fanpage
+│   ├── fb_publisher.py                  ← Đẩy Draft / Lên lịch 2 Fanpage
 │   └── HUONG_DAN_FACEBOOK_API.md        ← Hướng dẫn lấy Page Token vĩnh viễn
 │
 ├── 📁 notion_integration/               ← TÍCH HỢP NOTION API
@@ -139,6 +150,8 @@ Cấu hình Token trong file `.env` (tham khảo [.env.example](file:///c:/Users
 
 | Script | Lệnh Chạy | Gọi Tại Bước | Chức Năng |
 |:-------|:----------|:-------------|:---------|
+| [bot.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/telegram_bot/bot.py) | `python telegram_bot/bot.py` | Flow C | Khởi chạy Telegram Bot AI Agent 24/7 |
+| [run_telegram_bot.bat](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/run_telegram_bot.bat) | Click 1-chạm trên Windows | Flow C | Khởi chạy nhanh Telegram Bot |
 | [read_knowledge_vault.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/notion_integration/read_knowledge_vault.py) | `python notion_integration/read_knowledge_vault.py` | Flow A Bước 2 | Đọc & lọc ghi chú Notion Database |
 | [generate_slide_cards.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/scripts/generate_slide_cards.py) | `python scripts/generate_slide_cards.py` | Flow A Bước 5 | Sinh bộ 3 Slide Card 1080x1080px |
 | [html_generator.py](file:///c:/Users/PC/OneDrive%20-%20FPT%20Corporation/Documents/AI%20Agent%20-%20Hỗ%20trợ%20đăng%20bài%20FB%20tự%20động/scripts/html_generator.py) | `python scripts/html_generator.py` | Flow A Bước 6 | Xuất HTML FB Post Preview (Base64) |
