@@ -1,0 +1,27 @@
+services:
+  - type: worker
+    name: gmfinance-telegram-bot
+    runtime: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python telegram_bot/bot.py
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_ALLOWED_USER_ID
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: NOTION_TOKEN
+        sync: false
+      - key: NOTION_DATABASE_ID
+        sync: false
+      - key: FB_PAGE_1_ID
+        sync: false
+      - key: FB_PAGE_1_TOKEN
+        sync: false
+      - key: FB_PAGE_2_ID
+        sync: false
+      - key: FB_PAGE_2_TOKEN
+        sync: false

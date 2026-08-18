@@ -26,9 +26,16 @@ os.makedirs(OUTPUT_ASSETS_DIR, exist_ok=True)
 
 def get_font(size, bold=False):
     font_names = [
+        # Windows Fonts
         "arialbd.ttf" if bold else "arial.ttf",
-        "segoeui.ttf" if not bold else "segoeuib.ttf",
-        "calibri.ttf" if not bold else "calibrib.ttf",
+        "segoeuib.ttf" if bold else "segoeui.ttf",
+        "calibrib.ttf" if bold else "calibri.ttf",
+        # Linux / Docker / Cloud Fonts
+        "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "LiberationSans-Bold.ttf" if bold else "LiberationSans-Regular.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+        "FreeSansBold.ttf" if bold else "FreeSans.ttf",
     ]
     for name in font_names:
         try:
